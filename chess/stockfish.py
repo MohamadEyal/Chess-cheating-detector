@@ -1,7 +1,7 @@
 """
     This module implements the Stockfish class.
 
-    :copyright: (c) 2016-2021 by Ilya Zhelyabuzhsky.
+    :copyright: (c) 2016-2021 by Muhammad swalha
     :license: MIT, see LICENSE for more details.
 """
 

@@ -19,6 +19,7 @@ A chess library with move generation and validation,
 Polyglot opening book probing, PGN reading and writing,
 Gaviota tablebase probing,
 Syzygy tablebase probing, and XBoard/UCI engine communication.
+and Stockfish engine communication.
 """
 
 from __future__ import annotations
@@ -1263,7 +1264,7 @@ class BaseBoard:
 
         return "".join(builder)
 
-    def unicode(self, *, invert_color: bool = False, borders: bool = False, empty_square: str = "⭘", orientation: Color = WHITE) -> str:
+    def unicode(self, *, invert_color: bool = True, borders: bool = False, empty_square: str = "⭘", orientation: Color = WHITE) -> str:
         """
         Returns a string representation of the board with Unicode pieces.
         Useful for pretty-printing to a terminal.
