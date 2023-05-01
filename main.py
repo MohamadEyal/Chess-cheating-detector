@@ -1,4 +1,4 @@
-from stockfish import Stockfish
+from chess.stockfish import Stockfish
 import chess.pgn
 import os 
 
