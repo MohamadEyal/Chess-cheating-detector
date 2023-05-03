@@ -64,6 +64,8 @@ class Stockfish:
         self.info: str = ""
 
         self._parameters: dict = {}
+        self.turn: str = "w"
+
         self.update_engine_parameters(self._DEFAULT_STOCKFISH_PARAMS)
         self.update_engine_parameters(parameters)
 
@@ -236,6 +238,7 @@ class Stockfish:
         for move in moves:
             if not self.is_move_correct(move):
                 raise ValueError(f"Cannot make move: {move}")
+            self.turn = "w" if self.turn == "b" else "b"
             self._put(f"position fen {self.get_fen_position()} moves {move}")
 
     def get_board_visual(self, perspective_white: bool = True) -> str:
@@ -362,6 +365,50 @@ class Stockfish:
                 return None if splitted_text[1] == "(none)" else splitted_text[1]
             last_text = text
 
+    def decode_eval(self, max_eval:int) -> int :
+        evalution = self.get_evaluation()
+        if evalution["value"] != 0:
+            evalution_sign = evalution["value"] / abs(evalution["value"])
+        else:
+            evalution_sign = 0
+
+        if evalution["type"] == "mate":
+            evalution_graph = max_eval * evalution_sign
+            # print("Mate in ", evalution["value"], " for ", "White" if evalution_graph > 0 else "Black")
+        else:
+            evalution_graph = evalution["value"]
+            # print("The evaluation is: ", evalution_graph)
+        
+
+        
+        if evalution_graph > max_eval:
+            evalution_graph = max_eval
+        elif evalution_graph < -max_eval:
+            evalution_graph = -max_eval
+        
+        return evalution_graph
+
+    def move_eval(self, move: str, max_eval: int) -> int:
+        fen_pose = self.get_fen_position()
+        game_eval = self.get_evaluation()
+        self.make_moves_from_current_position([move])
+        move_eval = self.get_evaluation()
+        self.set_fen_position(fen_pose)
+
+        if game_eval["type"] == "mate" and move_eval["type"] != "mate":
+                return -max_eval
+        elif game_eval["type"] != "mate" and move_eval["type"] == "mate":
+                return max_eval
+        elif game_eval["type"] == "mate" and move_eval["type"] == "mate":
+            if game_eval["value"] > move_eval["value"]:
+                return max_eval
+            elif game_eval["value"] < move_eval["value"]:
+                return -max_eval
+            return 0
+        else:
+            return move_eval["value"] - game_eval["value"]
+    
+         
     @staticmethod
     def _is_fen_syntax_valid(fen: str) -> bool:
         # Code for this function taken from: https://gist.github.com/Dani4kor/e1e8b439115878f8c6dcf127a4ed5d3e
@@ -760,3 +807,5 @@ class Stockfish:
     def __del__(self) -> None:
         Stockfish._del_counter += 1
         self.send_quit_command()
+    
+    

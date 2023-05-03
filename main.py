@@ -2,6 +2,7 @@ from chess.stockfish import Stockfish
 import chess.pgn
 import os 
 import plotext as plt
+from alive_progress import alive_it
 
 # check if the os is windows or linux
 stockfish = Stockfish("./stockfish_15_linux.bin")
@@ -10,7 +11,6 @@ if os.name == "nt":
     
 # set the power of the engine to the max
 stockfish.set_skill_level(20)
-
 
 # read the board from the file
 pgn = open("game.pgn")
@@ -25,25 +25,29 @@ is_white = True
 white_player = game.headers["White"]
 black_player = game.headers["Black"]
 
-print(stockfish.get_top_moves(10))
-print(stockfish.get_evaluation())
+white_move_accuracy = []
+black_move_accuracy = []
 
+moves = list(game.mainline_moves())
 
-for move in game.mainline_moves():
-    print(move)
-    evalution = stockfish.get_evaluation()["value"]
-    print("The best move is: ", stockfish.get_best_move())
-    print("The current evaluation is: ", evalution)
+print("The game is: ", game.headers["Event"])
+
+for move in alive_it(moves, bar='bubbles'):    
+    if is_white:
+        white_move_accuracy.append(stockfish.move_eval(move, max_eval))
+        is_white = False
+    else:
+        black_move_accuracy.append(stockfish.move_eval(move, max_eval))
+        is_white = True    
+    evalution_list.append(stockfish.decode_eval(max_eval))
+    # print("The best move is: ", stockfish.get_best_move())
+    # print("The move evalution is: ", stockfish.move_eval(move, max_eval))
     
+    print( board.unicode(), "-----------------")
 
-    if abs(evalution) > max_eval:
-        evalution = max_eval if evalution > 0 else -max_eval
-
-    evalution_list.append(evalution)
-
-    print( board.unicode())
     board.push(move)
     stockfish.make_moves_from_current_position([move])
+    
 
 print("White player: ", white_player)
 print("Black player: ", black_player)
@@ -55,3 +59,6 @@ plt.ylabel("Evaluation")
 plt.ylim(-max_eval, max_eval)
 plt.theme("clear")
 plt.show()
+
+
+
