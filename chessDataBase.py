@@ -24,8 +24,28 @@ class ChessGameDatabase:
     def getPlayers(self):
         return self.conn["chess"]["players"]
     
-    def addplayer(self, player):
-        self.getPlayers().insert_one(player)
+    def addPlayer(self, playerusername, accuracy, game_date):
+        self.getPlayers().insert_one({"username": playerusername, "accuracy": accuracy, "date": game_date})
 
     def close(self):
         self.conn.close()
+
+    def playerGames(self, player):
+        return list(self.getGames().find({"$or": [{"White": player}, {"Black": player}]}))
+    
+    def playerGamesCount(self, player):
+        return self.getGames().count_documents({"$or": [{"White": player}, {"Black": player}]})
+    
+    def addGame(self, game):
+        #check if the game is already in the database
+        if self.getGames().find_one({"hash": game["hash"]}):
+            return False
+        else:
+            self.getGames().insert_one(game.get_headers())
+            return True
+    
+    def saveGame(self, game):
+        self.getGames().replace_one({"hash": game["hash"]}, game)
+    
+    def check_if_game_exist(self, game):
+        return len(list(self.getGames().find_one({"hash": game.get_headers()["hash"]}))) > 0 

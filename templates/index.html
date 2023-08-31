@@ -1,0 +1,42 @@
+<html>
+    <link rel="stylesheet"
+      href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+      integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
+      crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
+        crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+        integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
+        crossorigin="anonymous"></script>
+    
+    <head>
+        <title>Flask React App</title>
+    </head>
+<body>
+    <!-- lets make a input for the player name and a search button in the center-->
+    <div style="text-align:center">
+        <h3>Chess Game</h3>
+        <form action="/search" method="post">
+            <label for="fname">Player Name:</label><br>
+            <input type="text" id="fname" name="fname" value="John"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="board1" style="
+    border: 5px solid;
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+    " ></div>
+    <label>Status:</label>
+    <div id="status"></div>
+    <label>FEN:</label>
+    <div id="fen"></div>
+    <label>PGN:</label>
+    <div id="pgn"></div>
+
+<script src="{{ url_for('static', filename='bundle.js') }}"></script>
+</body>
+</html>

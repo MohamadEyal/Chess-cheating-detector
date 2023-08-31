@@ -1,36 +1,52 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-from chess.stockfish import Stockfish
-import chess.pgn
-import os 
-import plotext as plt
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 from alive_progress import alive_it
 
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
+import os 
+import plotext as plt
 
-from chess.hashgame import gameHash
 
 import chessDataBase
+from ReadGame import ChessGameReader
 
+from chess.stockfish import Stockfish
 
+# Database connection
 uri = "mongodb+srv://swalha:12345678911@chess.t4z9lx3.mongodb.net/?retryWrites=true&w=majority"
 database = chessDataBase.ChessGameDatabase(uri)
 database.connect()
 
+game =  ChessGameReader("game.pgn")
+print(database.check_if_game_exist(game))
+print(game.get_hash())
+
+
+# for game in database.playerGames("swalha1999"):
+#     print(game)
+
+
+
+exit()
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+@app.route('/img/chesspieces/wikipedia/<path:path>')
+def send_img(path):
+    return send_from_directory('img/chesspieces/wikipedia', path)
+
+app.run(debug=True)
+
+
+
 
 print("reading the game from the file")
 
-# lets check if the seen the game before by hashing the game and check if it exists in the database
+game = ChessGameReader("game.pgn")
+gameDict = game.get_headers()
 
-pgn = open("game.pgn")
-game = chess.pgn.read_game(pgn)
-moves = list(game.mainline_moves())
-gameDict = dict(game.headers)
-
-# reload the file for the hash function
-pgn = open("game.pgn")
-gameDict["hash"] = gameHash(pgn)
-print (gameDict["hash"])
 
 if database.getGames().find_one({"hash": gameDict["hash"]}):
     print("The game is in the database")
@@ -43,12 +59,7 @@ stockfish = Stockfish("./stockfish_15_linux.bin")
 if os.name == "nt":
     stockfish = Stockfish("stockfish-windows-2022-x86-64-avx2.exe")
     
-# set the power of the engine to the max
 stockfish.set_skill_level(20)
-
-# read the board from the file
-
-
 
 max_eval = 2000
 board = game.board()
@@ -64,8 +75,6 @@ black_move_accuracy = []
 moves = list(game.mainline_moves())
 
 
-database.getGames().insert_one(gameDict)
-database.getGames().delete_one({"hash": hash(pgn)})
 for move in alive_it(moves, bar='bubbles'):    
     if is_white:
         white_move_accuracy.append(stockfish.move_eval(move, max_eval))
@@ -97,3 +106,4 @@ plt.show()
 
 
 database.close()
+

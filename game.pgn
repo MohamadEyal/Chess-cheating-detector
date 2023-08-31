@@ -1,22 +1,19 @@
 [Event "Live Chess"]
 [Site "Chess.com"]
-[Date "2023.03.01"]
+[Date "2023.08.24"]
 [Round "?"]
-[White "swalha1999"]
-[Black "saadieyad"]
-[Result "1-0"]
-[ECO "B00"]
-[WhiteElo "1223"]
-[BlackElo "270"]
-[TimeControl "1800"]
-[EndTime "9:28:42 PST"]
-[Termination "swalha1999 won by checkmate"]
+[White "Adler10101010101010"]
+[Black "Mohamad_Eyal"]
+[Result "0-1"]
+[ECO "A40"]
+[WhiteElo "998"]
+[BlackElo "1055"]
+[TimeControl "600"]
+[EndTime "3:05:41 PDT"]
+[Termination "Mohamad_Eyal won by resignation"]
 
-1. e4 Nc6 2. Bc4 d5 3. Bxd5 e6  4. Bxc6+ bxc6 5. e5 Bc5 6. Qe2 f6 7. exf6 gxf6 8.
-Qh5+ Ke7 9. Qxc5+ Kd7 10. Qd4+ Ke8 11. c3 Nh6 12. Qxd8+ Kxd8 13. Na3 Ng4 14. Nf3
-Ba6 15. h3 Re8 16. hxg4 f5 17. gxf5 exf5+ 18. Kd1 Re2 19. Rxh7 Rxf2 20. Rh8+ Kd7
-21. Rxa8 Rf1+ 22. Kc2 Rg1 23. Rxa7 Be2 24. Ne5+ Ke7 25. Rxc7+ Kd6 26. Rxc6+ Kxe5
-27. d4+ Kd5 28. Rf6 Ke4 29. b4 Bd3+ 30. Kb3 Rxg2 31. b5 f4 32. Bxf4 Rg4 33. Bh6
-Rh4 34. b6 Rg4 35. b7 Rg8 36. Bf4 Rb8 37. Bxb8 Kd5 38. c4+ Kxd4 39. Nb5+ Ke3 40.
-Re1+ Be2 41. Re6+ Kd2 42. R1xe2+ Kc1 43. Re1+ Kd2 44. R6e2+ Kd3 45. Re3+ Kd2 46.
-R1e2+ Kc1 47. Bf4 Kb1 48. Nc3+ Ka1 49. Re1# 1-0
+1. d4 g6 2. Nf3 Bg7 3. Nc3 d6 4. e4 Nd7 5. b3 Ngf6 6. Bb2 O-O 7. e5 dxe5 8. dxe5
+Ng4 9. Na4 Ngxe5 10. Be2 Nxf3+ 11. Bxf3 Bxb2 12. Nxb2 Nf6 13. O-O h5 14. Qc1 Nd5
+15. Qg5 e6 16. Qg3 a5 17. Bxh5 Nf6 18. Bxg6 fxg6 19. Qxg6+ Kh8 20. Nd3 Rg8 21.
+Qh6+ Nh7 22. Ne5 Qf6 23. Qh5 Rg5 24. Nf7+ Kg7 25. Nxg5 Nxg5 26. Rad1 e5 27. Rd8
+Qxd8 28. Re1 Qf6 29. Qg4 Bxg4 0-1
