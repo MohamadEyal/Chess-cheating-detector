@@ -1,4 +1,3 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 from alive_progress import alive_it
 
 import os 
@@ -22,24 +21,6 @@ print(game.get_hash())
 
 # for game in database.playerGames("swalha1999"):
 #     print(game)
-
-
-
-exit()
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-@app.route('/img/chesspieces/wikipedia/<path:path>')
-def send_img(path):
-    return send_from_directory('img/chesspieces/wikipedia', path)
-
-app.run(debug=True)
-
-
 
 
 print("reading the game from the file")
