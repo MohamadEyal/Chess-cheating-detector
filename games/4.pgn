@@ -1,0 +1,17 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2023.09.03"]
+[Round "?"]
+[White "mohsen_mir"]
+[Black "Mohamad_Eyal"]
+[Result "0-1"]
+[ECO "B06"]
+[WhiteElo "480"]
+[BlackElo "506"]
+[TimeControl "60"]
+[EndTime "14:26:22 PDT"]
+[Termination "Mohamad_Eyal won on time"]
+
+1. e4 g6 2. Qf3 Bg7 3. Bc4 e6 4. Nh3 d5 5. Ng5 Nh6 6. exd5 exd5 7. Bxd5 O-O 8.
+d3 Bg4 9. Qf4 Qe7+ 10. Be3 c6 11. h3 Bh5 12. Bc4 Bxb2 13. Nxh7 Kxh7 14. Qc7 Bxa1
+15. Qxe7 Bc3+ 16. Bd2 Nd7 17. Bxc3 Rfe8 0-1

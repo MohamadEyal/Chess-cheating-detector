@@ -27,11 +27,18 @@ class ChessGameDatabase:
     def addPlayer(self, playerusername, accuracy, game_date):
         self.getPlayers().insert_one({"username": playerusername, "accuracy": accuracy, "date": game_date})
 
+    def getPlayer(self, playerusername):
+        palyer = list(self.getPlayers().find({"username": playerusername}))
+        palyer.sort(key=lambda x: x["date"])
+        return palyer
     def close(self):
         self.conn.close()
 
     def playerGames(self, player):
-        return list(self.getGames().find({"$or": [{"White": player}, {"Black": player}]}))
+        games =  list(self.getGames().find({"$or": [{"White": player}, {"Black": player}]}))
+        #sort the games by date
+        games.sort(key=lambda x: x["Date"])
+        return games
     
     def playerGamesCount(self, player):
         return self.getGames().count_documents({"$or": [{"White": player}, {"Black": player}]})
@@ -48,4 +55,4 @@ class ChessGameDatabase:
         self.getGames().replace_one({"hash": game["hash"]}, game)
     
     def check_if_game_exist(self, game):
-        return len(list(self.getGames().find_one({"hash": game.get_headers()["hash"]}))) > 0 
+        return list(self.getGames().find_one({"hash": game["hash"]})) != [] 
