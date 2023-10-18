@@ -13,7 +13,7 @@ print(fileNames)
 
 
 for game in fileNames:
-    subprocess.run(["python3", "main.py", "games/" + game])
+    subprocess.run(["python", "main.py", "games/" + game])
     print("Done with the game: ", game)
 
 

@@ -24,8 +24,8 @@ class ChessGameDatabase:
     def getPlayers(self):
         return self.conn["chess"]["players"]
     
-    def addPlayer(self, playerusername, accuracy, game_date):
-        self.getPlayers().insert_one({"username": playerusername, "accuracy": accuracy, "date": game_date})
+    def addPlayer(self, playerusername, best, vgood, good, game_date):
+        self.getPlayers().insert_one({"username": playerusername, "best": best, "vgood": vgood, "good": good, "date": game_date})
 
     def getPlayer(self, playerusername):
         palyer = list(self.getPlayers().find({"username": playerusername}))
