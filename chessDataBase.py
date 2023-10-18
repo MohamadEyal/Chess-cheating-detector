@@ -55,4 +55,9 @@ class ChessGameDatabase:
         self.getGames().replace_one({"hash": game["hash"]}, game)
     
     def check_if_game_exist(self, game):
-        return list(self.getGames().find_one({"hash": game["hash"]})) != [] 
+        return list(self.getGames().find_one({"hash": game["hash"]})) != []
+
+    def delete_all(self):
+        self.getGames().delete_many({})
+        self.getPlayers().delete_many({})
+
